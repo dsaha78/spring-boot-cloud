@@ -6,7 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
+@Slf4j
 public class CurrencyExchangeController {
 	
 	@Autowired
@@ -20,7 +23,7 @@ public class CurrencyExchangeController {
 		
 		ExchangeValue exchangeValue = exchnageServiceJPARepository.findByFromAndTo(from, to);
 		exchangeValue.setPort(Integer.parseInt(environment.getProperty("local.server.port")));
-		
+		log.info("<Exchange> {}",exchangeValue.getConversionMultiple());
 		return exchangeValue;
 		
 	}

@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
+@Slf4j
 public class CurrencyConversionController {
 	
 	@Autowired
@@ -42,6 +45,7 @@ public class CurrencyConversionController {
 
 		CurrencyConversionBean response = proxy.retriveExchangeValue(from, to);
 
+		log.info("<Conversion> {}",response);
 		return new CurrencyConversionBean(response.getId(), from, to, response.getConversionMultiple(), quantity,
 				quantity.multiply(response.getConversionMultiple()), response.getPort());
 
